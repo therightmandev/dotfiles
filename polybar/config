@@ -1,0 +1,207 @@
+;=====================================================
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;
+;=====================================================
+
+[colors]
+;background = ${xrdb:color0:#222}
+background = #000
+background-alt = #0000
+;foreground = ${xrdb:color7:#222}
+foreground = #dfdfdf
+foreground-alt = #555
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+
+[bar/example]
+;monitor = ${env:MONITOR:HDMI-1}
+monitor = ${env:MONITOR:DVI-D-0}
+width = 100%
+height = 35
+
+;offset-x = 1%
+offset-y = 5
+radius = 6.0
+fixed-center = true
+
+override-redirect = true
+wm-restack = i3
+
+background = ${colors.background-alt}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+
+border-size = 4
+border-color = #00000000
+
+padding-left = 8
+padding-right = 8
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = fixed:pixelsize=15;1
+font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-2 = siji:pixelsize=10;1
+font-3 = code2000:pixelsize=15;1
+
+modules-left = spotify
+modules-center = date
+modules-right = volume
+
+tray-position = right
+tray-padding = 2
+;tray-transparent = true
+;tray-background = #0063ff
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[bar/bottom]
+monitor = ${env:MONITOR:DVI-D-0}
+bottom = true
+width = 100%
+height = 75
+;offset-x = 40%
+offset-y = 0
+
+override-redirect = true
+;wm-restack = i3
+
+font-0 = unifont:fontformat=truetype:size=20:antialias=false;0
+;font-0 = ttf-font-awesome:pixelsize=20;1
+font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=20;0"
+font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=20;0"
+font-3 = "Font Awesome 5 Brands:pixelsize=20;0"
+font-4 = unifont:fontformat=truetype:size=20:antialias=false;0
+font-5 = siji:pixelsize=20;1
+font-6 = code2000:pixelsize=20;1
+
+background = ${colors.background-alt}
+foreground = ${colors.foreground}
+
+modules-center = i3
+
+[module/i3]
+type = internal/i3
+
+ws-icon-0 = 1: Music;
+ws-icon-1 = 2: Creative;
+ws-icon-2 = 3: Programming;
+ws-icon-3 = 4: School;
+ws-icon-default = ♟
+
+; Available tags:
+;   <label-state> (default) - gets replaced with <label-(focused|unfocused|visible|urgent)>
+;   <label-mode> (default)
+format = <label-state> <label-mode>
+
+; Available tokens:
+;   %mode%
+; Default: %mode%
+label-mode = %mode%
+label-mode-padding = 2
+label-mode-background = #e60053
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-focused = %icon%
+label-focused-foreground = #ff0000
+;label-focused-background = #3f3f3f
+label-focused-underline = #fba922
+label-focused-padding = 4
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-unfocused = %icon%
+label-unfocused-padding = 4
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-visible = %index%
+label-visible-underline = #555555
+label-visible-padding = 4
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-urgent = %icon%
+label-urgent-foreground = #000000
+label-urgent-background = #bd2c40
+label-urgent-padding = 4
+
+; Separator in between workspaces
+;label-separator = |
+;label-separator-padding = 2
+;label-separator-foreground = #ffb52a
+
+[module/date]
+type = internal/date
+interval = 5
+
+date = "" 
+date-alt = " %Y-%m-%d"
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+;format-prefix = 
+;format-prefix-foreground = ${colors.foreground-alt}
+;format-underline = #0a6cf5
+
+label = %date% %time%
+
+[module/volume]
+type = internal/alsa
+format-volume = <ramp-volume> <label-volume>
+label-volume = %percentage%
+label-muted =  muted 
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+bar-volume-width = 10
+bar-volume-indicator = ╍
+bar-volume-fill = ╍
+bar-volume-empty = ╍
+format-volume-padding = 1
+format-muted-padding = 1
+
+[module/spotify]
+type = custom/script
+exec = ~/.config/polybar/spotify.sh %title% - %artist%
+tail = true
+interval = 2
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+
+[global/wm]
+margin-top = 5
+margin-bottom = 1
+
+; vim:ft=dosini
